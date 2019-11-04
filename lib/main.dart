@@ -1,7 +1,8 @@
-import 'package:device_tracker/http.dart';
+import 'package:device_tracker/service/http.dart';
 import 'package:flutter/material.dart';
 
-import 'data_model.dart';
+import 'model/data_model.dart';
+import 'view/add_dialog.dart';
 
 void main() => runApp(MyApp());
 
@@ -68,6 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
             return CircularProgressIndicator();
           },
           )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialogWidget(context);
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
