@@ -1,4 +1,7 @@
+import 'package:device_tracker/model/user_model.dart';
 import 'package:flutter/material.dart';
+
+import '../service/http.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -70,7 +73,7 @@ class _SignupPageState extends State<SignupPage> {
             style: TextStyle(color: Colors.white, fontSize: 20.0),
             obscureText: true,
             decoration: InputDecoration(labelText: 'Confirm Password'),
-            validator: validatePassword,
+            validator: validateConfirm,
             onSaved: (String val) {
               _confirm = val;
             },
@@ -111,12 +114,21 @@ class _SignupPageState extends State<SignupPage> {
       return null;
   }
 
+  String validateConfirm(String value) {
+    if(value.length < 6 && value != _password) 
+      return 'Password not matching';
+    else 
+      return null;
+  }
+
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
-//    If all data are correct then save data to out variables
       _formKey.currentState.save();
+
+      //post user data here get to know how to create json 
+      postUser();
+
     } else {
-//    If all data are not valid then start auto validation.
       setState(() {
         _autoValidate = true;
       });
