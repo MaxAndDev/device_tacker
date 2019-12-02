@@ -1,8 +1,6 @@
-import 'package:device_tracker/service/http.dart';
 import 'package:flutter/material.dart';
 
-import 'model/data_model.dart';
-import 'view/add_dialog.dart';
+import './view/signup.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,75 +9,70 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Device Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Device Tracker'),
+      theme: ThemeData(primaryColor: Colors.white, fontFamily: 'BalooBhai'),
+      home: LoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  Future<PostList> post;
-
-  @override
-  void initState() {
-    super.initState();
-    post = fetchPost();
-  }
-  
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(child: 
-        FutureBuilder<PostList>(
-          future: post, 
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return(
-                ListView.builder(
-                  itemCount: snapshot.data.posts.length,
-                  itemBuilder: (context, index){
-                    return ListTile(
-                      leading: Icon(Icons.developer_mode),
-                      title: Text(snapshot.data.posts[index].title),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      onTap: () {
-                        
-                      },
-                    );
-                  },
-                )
-              );
-            } else if(snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            return CircularProgressIndicator();
-          },
-          )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialogWidget(context);
-        },
-        child: Icon(Icons.add),
-      ),
-    );
+        backgroundColor: Colors.lightBlue,
+        body: Column(
+          children: <Widget>[
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 200.0),
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.devices, color: Colors.white, size: 50.0),
+                      SizedBox(
+                        height: 35.0,
+                      ),
+                      Text(
+                        'Welcome',
+                        style: TextStyle(color: Colors.white, fontSize: 40.0),
+                      ),
+                      SizedBox(height: 50.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+                        child: MaterialButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupPage()));
+                          },
+                          textColor: Colors.lightBlue,
+                          color: Colors.white,
+                          child: Text('Sign up'),
+                          splashColor: Colors.lightBlue,
+                          shape: StadiumBorder(),
+                          minWidth: double.infinity,
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+                        child: MaterialButton(
+                          onPressed: () {},
+                          textColor: Colors.lightBlue,
+                          color: Colors.white,
+                          child: Text('Login'),
+                          splashColor: Colors.lightBlue,
+                          shape: StadiumBorder(),
+                          minWidth: double.infinity,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
-
-
-
-
