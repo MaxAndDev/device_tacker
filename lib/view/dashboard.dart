@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../model/data_model.dart';
 import '../view/add_dialog.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  Dashboard({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _DashboardState extends State<Dashboard> {
 
   Future<PostList> post;
 

@@ -1,5 +1,7 @@
-import 'package:device_tracker/model/user_model.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import '../view/dashboard.dart';
 
 import '../service/http.dart';
 
@@ -12,6 +14,7 @@ class _SignupPageState extends State<SignupPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _autoValidate = false;
+  bool _loginSuccess = false;
   String _email;
   String _password;
 
@@ -73,6 +76,11 @@ class _SignupPageState extends State<SignupPage> {
             child: MaterialButton(
               onPressed: () {
                 _validateInputs();
+                if (_loginSuccess) 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Dashboard())
+                );
               },
               textColor: Colors.lightBlue,
               color: Colors.white,
@@ -104,14 +112,19 @@ class _SignupPageState extends State<SignupPage> {
       return null;
   }
 
-  void _validateInputs() {
+  void _validateInputs() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      var loginData = "{'email' : ${_email}, 'password': ${_password}}";
+      var loginData = jsonEncode({"email" : "${_email}", "password": "${_password}"}) ;
 
-      //post user data here get to know how to create json 
-     print(postUserLogin(loginData));
+      var response = await postUserLogin(loginData);
+
+      if(response) {
+        setState(() {
+          _loginSuccess = true;
+        });
+      }
 
     } else {
       setState(() {
@@ -119,4 +132,5 @@ class _SignupPageState extends State<SignupPage> {
       });
     }
   }
+
 }

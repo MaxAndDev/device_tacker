@@ -14,13 +14,14 @@ Future<PostList> fetchPost() async {
   }
 }
 
-Future postUserLogin(login_data) async {
-  //TO DO create valid json from input object
+Future postUserLogin(loginData) async {
+
   Map<String, String> headers = {"Content-type": "application/json"};
 
-  final response = await post(urlUserLogin , headers: headers, body: login_data);
+  final response = await post(urlUserLogin , headers: headers, body: loginData);
 
   if (response.statusCode == 200){
+    print(response.body);
     return response.body;
   } else {
     throw Exception('Failed to load ressource');
