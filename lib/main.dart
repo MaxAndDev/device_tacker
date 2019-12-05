@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './view/signup.dart';
+import './view/login.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,25 +48,12 @@ class LoginPage extends StatelessWidget {
                           },
                           textColor: Colors.lightBlue,
                           color: Colors.white,
-                          child: Text('Sign up'),
-                          splashColor: Colors.lightBlue,
-                          shape: StadiumBorder(),
-                          minWidth: double.infinity,
-                        ),
-                      ),
-                      SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 32.0, right: 32.0),
-                        child: MaterialButton(
-                          onPressed: () {},
-                          textColor: Colors.lightBlue,
-                          color: Colors.white,
                           child: Text('Login'),
                           splashColor: Colors.lightBlue,
                           shape: StadiumBorder(),
                           minWidth: double.infinity,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

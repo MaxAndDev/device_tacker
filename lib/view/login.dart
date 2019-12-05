@@ -14,7 +14,6 @@ class _SignupPageState extends State<SignupPage> {
   bool _autoValidate = false;
   String _email;
   String _password;
-  String _confirm;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        'Sign Up',
+                        'Login',
                         style: TextStyle(color: Colors.white, fontSize: 40.0),
                       ),
                       SizedBox(height: 50.0),
@@ -69,15 +68,6 @@ class _SignupPageState extends State<SignupPage> {
               _password = val;
             },
           ),
-          TextFormField(
-            style: TextStyle(color: Colors.white, fontSize: 20.0),
-            obscureText: true,
-            decoration: InputDecoration(labelText: 'Confirm Password'),
-            validator: validateConfirm,
-            onSaved: (String val) {
-              _confirm = val;
-            },
-          ),
           Padding(
             padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 64.0),
             child: MaterialButton(
@@ -114,19 +104,14 @@ class _SignupPageState extends State<SignupPage> {
       return null;
   }
 
-  String validateConfirm(String value) {
-    if(value.length < 6 && value != _password) 
-      return 'Password not matching';
-    else 
-      return null;
-  }
-
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
+      var loginData = "{'email' : ${_email}, 'password': ${_password}}";
+
       //post user data here get to know how to create json 
-      postUser();
+     print(postUserLogin(loginData));
 
     } else {
       setState(() {
